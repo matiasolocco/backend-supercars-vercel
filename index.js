@@ -34,7 +34,7 @@ app.use('/api/vehicles', vehicleRoutes);
 
 //CONEXION VERCEL
 app.get("/", (req,res) => (
-    res.send("Express en Vercel")// para que la raiz devuelva el mensaje para ver que todo va OK
+    res.send("Express en Vercel(version 2)")// para que la raiz devuelva el mensaje para ver que todo va OK
 ))
 
 // Definir el puerto y poner en marcha el servidor
