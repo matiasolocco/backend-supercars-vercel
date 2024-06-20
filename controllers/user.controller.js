@@ -9,13 +9,13 @@ const userController = {
     // Registro de usuario
     register: async (req, res) => {
         try {
-            const { name, email, password } = req.body;
+            const { name, email, password } = req.body;//se elimina ROLE para que el usuario no pueda modificarlo y hackear
 
             const newUser = new User({
                 name,
                 email,
                 password: password,
-                role: 'user'
+                role: 'user' //cualquier usuario que se registre va a ser user
             });
 
             await newUser.save();
