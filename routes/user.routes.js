@@ -3,7 +3,7 @@ const router = express.Router();
 const userController = require('../controllers/user.controller');
 
 // Middleware para proteger rutas
-const { protect, restrictTo } = require('../middlewares/auth.middlware');
+const { protect, restrictTo, restrictToSelf } = require('../middlewares/auth.middleware');
 
 // Ruta para registrar un nuevo usuario
 router.post('/register', userController.register);
@@ -12,6 +12,9 @@ router.post('/register', userController.register);
 router.post('/login', userController.login);
 
 // Ruta para actualizar el perfil de usuario
-router.patch('/update/:userId', protect, userController.updateProfile);
+router.patch('/update/:id', protect, restrictToSelf, userController.updateProfile);
+
+// Ruta para obtener todos los usuarios (solo admin)
+router.get('/all', protect, restrictTo('admin'), userController.getAllUsers);
 
 module.exports = router;

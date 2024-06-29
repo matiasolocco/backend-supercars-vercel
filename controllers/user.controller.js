@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
+
 // Configurar JWT
 const JWT_SECRET = 'tu_super_secreto'; // Este debe estar en una variable de entorno
 const JWT_EXPIRES_IN = '90d';
@@ -28,7 +29,7 @@ const userController = {
     // Inicio de sesión
     login: async (req, res) => {
         try {
-            const { email, password, role } = req.body;
+            const { email, password } = req.body;
             const user = await User.findOne({ email });
 
             if (!user) {
@@ -42,7 +43,7 @@ const userController = {
             }
 
             const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
-            res.status(200).json({ message: 'Login exitoso', token, id: user._id, role: user.role  });
+            res.status(200).json({ message: 'Login exitoso', token, id: user._id, role: user.role });
         } catch (error) {
             res.status(500).json({ message: 'Error en el login', error: error.message });
         }
@@ -62,6 +63,16 @@ const userController = {
             res.status(200).json({ message: 'Perfil actualizado con éxito', user: updatedUser });
         } catch (error) {
             res.status(500).json({ message: 'Error al actualizar el perfil', error: error.message });
+        }
+    },
+
+    // Obtener todos los usuarios (solo admin)
+    getAllUsers: async (req, res) => {
+        try {
+            const users = await User.find();
+            res.status(200).json({ users });
+        } catch (error) {
+            res.status(500).json({ message: 'Error al obtener los usuarios', error: error.message });
         }
     }
 };
