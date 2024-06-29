@@ -12,7 +12,6 @@ router.post('/register', userController.register);
 router.post('/login', userController.login);
 
 // Ruta para actualizar el perfil de usuario
-// Asegúrate de que solo usuarios logueados puedan acceder a esta ruta
 router.patch('/update/:userId', protect, userController.updateProfile);
 
 module.exports = router;

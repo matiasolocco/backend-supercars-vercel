@@ -9,13 +9,13 @@ const userController = {
     // Registro de usuario
     register: async (req, res) => {
         try {
-            const { name, email, password } = req.body;//se elimina ROLE para que el usuario no pueda modificarlo y hackear
+            const { name, email, password } = req.body;
 
             const newUser = new User({
                 name,
                 email,
                 password: password,
-                role: 'user' //cualquier usuario que se registre va a ser user
+                role: 'user'
             });
 
             await newUser.save();
@@ -28,7 +28,7 @@ const userController = {
     // Inicio de sesión
     login: async (req, res) => {
         try {
-            const { email, password } = req.body;
+            const { email, password, role } = req.body;
             const user = await User.findOne({ email });
 
             if (!user) {
@@ -42,7 +42,7 @@ const userController = {
             }
 
             const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
-            res.status(200).json({ message: 'Login exitoso', token });
+            res.status(200).json({ message: 'Login exitoso', token, id: user._id, role: user.role  });
         } catch (error) {
             res.status(500).json({ message: 'Error en el login', error: error.message });
         }
