@@ -95,11 +95,11 @@ const bookingController = {
 
     updateBookingDates: async (req, res) => {
         try {
-          const { bookingId } = req.params;
+          const { id } = req.params;
           const { startDate, endDate } = req.body;
     
           // Busca la reserva por su ID y actualiza las fechas
-          const updatedBooking = await Booking.findByIdAndUpdate(bookingId, { startDate, endDate }, { new: true });
+          const updatedBooking = await Booking.findByIdAndUpdate(id, { startDate, endDate }, { new: true });
     
           // Verifica si la reserva se actualizó correctamente
           if (!updatedBooking) {

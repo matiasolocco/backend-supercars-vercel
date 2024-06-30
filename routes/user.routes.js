@@ -3,7 +3,7 @@ const router = express.Router();
 const userController = require('../controllers/user.controller');
 
 // Middleware para proteger rutas
-const { protect, restrictTo, restrictToSelf } = require('../middlewares/auth.middleware');
+const { protect, restrictTo, restrictToSelf } = require('../middlewares/auth.middlware');
 
 // Ruta para registrar un nuevo usuario
 router.post('/register', userController.register);
