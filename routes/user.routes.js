@@ -17,4 +17,7 @@ router.patch('/update/:id', protect, restrictToSelf, userController.updateProfil
 // Ruta para obtener todos los usuarios (solo admin)
 router.get('/all', protect, restrictTo('admin'), userController.getAllUsers);
 
+// Ruta para obtener iformacion personal del usuario
+router.get('/my-info/:id',protect, restrictTo('user', 'admin'), userController.getInfoByUser)
+
 module.exports = router;
