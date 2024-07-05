@@ -5,10 +5,13 @@ const vehicleController = {
     addVehicle: async (req, res) => {
         try {
             const { brand, model, image, pricePerDay, available } = req.body;
+            console.log('Datos recibidos para agregar vehiculo:', req.body);
             const newVehicle = new Vehicle({
                 brand,
                 model,
                 image,
+                year,
+                description,
                 pricePerDay,
                 available
             });
@@ -16,6 +19,7 @@ const vehicleController = {
             await newVehicle.save();
             res.status(201).json({ message: 'Vehículo agregado con éxito', vehicle: newVehicle });
         } catch (error) {
+            console.error('Error al agregar el vehículo:', error);
             res.status(500).json({ message: 'Error al agregar el vehículo', error: error.message });
         }
     },
