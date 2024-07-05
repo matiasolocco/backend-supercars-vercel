@@ -12,7 +12,7 @@ router.post('/register', userController.register);
 router.post('/login', userController.login);
 
 // Ruta para actualizar el perfil de usuario
-router.patch('/update/:id', protect, restrictToSelf, userController.updateProfile);
+router.patch('/update/:userId', protect, restrictToSelf, userController.updateProfile);
 
 // Ruta para obtener todos los usuarios (solo admin)
 router.get('/all', protect, restrictTo('admin'), userController.getAllUsers);
