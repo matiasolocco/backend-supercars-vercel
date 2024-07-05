@@ -50,24 +50,29 @@ const vehicleController = {
     updateVehicle: async (req, res) => {
         try {
             const { id } = req.params;
-            const { brand, model, image, pricePerDay, available } = req.body;
+            const { brand, model, description, image, pricePerDay, year, available } = req.body;
+            console.log('Datos recibidos para actualizar:', { brand, model, description, image, pricePerDay, year, available }); // Agrega este log
             const updatedVehicle = await Vehicle.findByIdAndUpdate(id, {
                 brand,
                 model,
+                description,
                 image,
                 pricePerDay,
+                year,
                 available
             }, { new: true });
-
+    
             if (!updatedVehicle) {
                 return res.status(404).json({ message: 'Vehículo no encontrado' });
             }
-
+    
             res.status(200).json({ message: 'Vehículo actualizado con éxito', vehicle: updatedVehicle });
         } catch (error) {
+            console.error('Error al actualizar el vehiculo:', error);
             res.status(500).json({ message: 'Error al actualizar el vehículo', error: error.message });
         }
     },
+    
 
     // Eliminar un vehículo
     deleteVehicle: async (req, res) => {
