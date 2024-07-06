@@ -4,7 +4,7 @@ const vehicleController = {
     // Agregar un nuevo vehículo
     addVehicle: async (req, res) => {
         try {
-            const { brand, model, image, pricePerDay, available } = req.body;
+            const { brand, model, image, pricePerDay,year, description} = req.body;
             console.log('Datos recibidos para agregar vehiculo:', req.body);
             const newVehicle = new Vehicle({
                 brand,
@@ -13,7 +13,7 @@ const vehicleController = {
                 year,
                 description,
                 pricePerDay,
-                available
+                available: true,
             });
 
             await newVehicle.save();
